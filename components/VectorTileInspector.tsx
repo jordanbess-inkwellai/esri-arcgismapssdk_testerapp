@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { load } from 'pmtiles';
+import { PMTiles } from 'pmtiles';
+
+interface Metadata {
+  vector_layers?: any[];
+  minzoom?: number;
+  maxzoom?: number;
+  center?: number[];
+  bounds?: number[];
+}
 
 interface LayerProperties {
   [key: string]: any;
@@ -25,8 +33,8 @@ const VectorTileInspector: React.FC<VectorTileInspectorProps> = ({ pmtilesUrl })
       setLoading(true);
       setError(null);
       try {
-        const protocol = new load(pmtilesUrl);
-        const metadata = await protocol.getMetadata();
+        const protocol = new PMTiles(pmtilesUrl);
+        const metadata = await protocol.getMetadata() as Metadata;
 
         if (!metadata || !metadata.vector_layers) {
           throw new Error('No vector layers found in metadata');
