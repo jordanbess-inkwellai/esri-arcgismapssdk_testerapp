@@ -25,6 +25,8 @@ Page 3 -CloudNative Cloud Native/Optimized PMTILES and FlatGeoBuf with FlatGeoBu
 Page 4 Map Compare
 Two side by Side Maps to compare performance and evaluagte different mapping services and tile layers to see the impact on page load times, refreshes, and other functions
 
+Page 5 - Code Sandbox Integrated Development Playground Similar to ESRI Code Sandbox https://developers.arcgis.com/javascript/latest/sample-code/sandbox/?sample=intro-mapview
+
 Developed by Jordan Bess May 2025
 ## Project Overview
 This project is a web application designed for exploring and interacting with geospatial data. It integrates multiple data sources, tools, and libraries to provide a comprehensive environment for developers and data analysts to work with geospatial information. Key features include connecting to various data sources, executing queries, creating geometries, discovering new data, and interacting with a dynamic map interface.
