@@ -6,11 +6,9 @@ import TileLayer from '@arcgis/core/layers/TileLayer';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
 import Graphic from '@arcgis/core/Graphic';
-import Query from '@arcgis/core/tasks/support/Query';
-import * as flatgeobuf from 'flatgeobuf/lib/cjs/flatgeobuf';
-import { fromBlob } from 'flatgeobuf/lib/cjs/geojson';
+import * as flatgeobuf from 'flatgeobuf';
 
-const MapTestPage: React.FC = () => {
+const MapTestPage = () => {
   const mapDiv = useRef<HTMLDivElement>(null);
   const [selectedLayer, setSelectedLayer] = useState<any>(null);
   const [layerProperties, setLayerProperties] = useState<any>(null);
@@ -39,24 +37,24 @@ const MapTestPage: React.FC = () => {
       title: "PMTiles Vector Layer"
     });
     map.add(vectorTileLayer);
-
+    
     vectorTileLayer.when(() => {
-      vectorTileLayer.loadAll().then(function(l){
-        const vectorSublayers = vectorTileLayer.sublayers;
-        setVectorLayers(vectorSublayers.map((layer) => {
-          return {
-            id: layer.id,
-            title: layer.title,
+      const vectorSublayers = map.allLayers.filter((layer) => layer.type === "vector-tile").reduce((acc: any[], vectorTileLayer: any) => {
+          if(vectorTileLayer.sublayers) {
+            acc.push(...vectorTileLayer.sublayers.toArray())
+          }
+        return acc
+      }, []).map((layer:any) => ({
+           id: layer.layerId,
+            title: layer.title || layer.layerId,
             visible: layer.visible,
             popupTemplate: layer.popupTemplate,
-          };
-        }));
-
-        const layerIds = vectorSublayers.map(sublayer => sublayer.id);
-        console.log("Vector Sublayer Ids",layerIds);
+          }));
+        setVectorLayers(vectorSublayers);
       });
-    });
-  
+    
+    
+
 
     const rasterTileLayer = new TileLayer({
       url: 'https://www.example.com/path/to/pmtiles/raster/tiles.pmtiles',
@@ -72,24 +70,24 @@ const MapTestPage: React.FC = () => {
       graphicsLayer.removeAll();
 
       view.hitTest(event).then((response) => {
-        const graphic = response.results.find((result) => result.graphic);
+        const graphic = response.results.find((result) => result.type === "graphic")?.graphic;
         if (graphic) {
           const highlightGraphic = new Graphic({
-            geometry: graphic.graphic.geometry,
+            geometry: graphic.geometry,
             symbol: {
               type: 'simple-fill',
               color: [255, 0, 0, 0.5],
               outline: {
                 color: [255, 0, 0],
-                width: 2,
+                width: 2
               },
             },
           });
           graphicsLayer.add(highlightGraphic);
 
-          const attributes = graphic.graphic.attributes;
+          const attributes = graphic.attributes;
           setLayerProperties(attributes);
-          setSelectedLayer(graphic.graphic);
+          setSelectedLayer(graphic);
         }
       });
     });
@@ -104,26 +102,30 @@ const MapTestPage: React.FC = () => {
   }, [mapLoaded]);
 
   const handleLayerSelect = (layerId: number) => {
-    const layer = vectorLayers.find((l) => l.id === layerId);
+    const layer = vectorLayers.find((l) => l.id === layerId.toString());
     setSelectedLayer(layer);
     setLayerProperties(null);
   };
 
   const handleQuery = async () => {
-    setQueryResult([]);
+    setQueryResult( []);
     if (!queryText) return;
     const fgbUrl = 'https://www.example.com/path/to/data.fgb';
     try {
       const response = await fetch(fgbUrl);
       const blob = await response.blob();
-      const features = await fromBlob(blob);
-      const filteredFeatures = features.filter((feature: any) => {
+      const features = flatgeobuf.fromBlob(blob)
+      const allFeatures:any[] = [];
+      for await (const feature of features) {
+        allFeatures.push(feature)
+      }
+      const filteredFeatures = allFeatures.filter((feature: any) => {
           const attributes = feature.properties;
-        return Object.values(attributes).some((value) => {
-          return String(value).toLowerCase().includes(queryText.toLowerCase());
-        });
+          return Object.values(attributes).some((value) => {
+            return String(value).toLowerCase().includes(queryText.toLowerCase());
+          });
       });
-       setQueryResult(filteredFeatures);
+      setQueryResult(filteredFeatures);
 
     } catch (error) {
       console.error('Error querying FlatGeoBuf:', error);
@@ -132,7 +134,7 @@ const MapTestPage: React.FC = () => {
   
   const handleLayerVisibility = (layer: any, visible: boolean) => {
     if (vectorLayers.length > 0) {
-      const layerToUpdate = vectorLayers.find((l) => l.id === layer.id);
+      const layerToUpdate = vectorLayers.find((l) => l.id === layer.id.toString());
       if (layerToUpdate) {
         layerToUpdate.visible = visible;
         setVectorLayers([...vectorLayers]);

@@ -12,6 +12,7 @@
     "@arcgis/core": "^4.32.10",
     "@duckdb/duckdb-wasm": "^1.29.1-dev132.0",
     "@loaders.gl/flatgeobuf": "^4.3.3",
+    "flatgeobuf": "^4.0.1",
     "loaders.gl": "^0.3.5",
     "next": "15.3.1",
     "pmtiles": "^4.3.0",

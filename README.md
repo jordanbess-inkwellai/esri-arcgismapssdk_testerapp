@@ -1,5 +1,31 @@
 # Geospatial Data Exploration Tool
+esri-arcgismapssdk_testerapp
+provide working sample to evaluate features and capabilities for smartmap
 
+This is for INTERNAL USE ONLY 
+NOT FOR DISTRIBUTION OR PUBLIC VIEWING.
+THIS IS A DEVELOPER TOOL !
+
+Page 1
+
+Support OGC WFS-T Transactional with new Editor Widget (Connection to GeoNode/GeoServer)
+Add Data Widget with support for any OGR supported format local and internet via httpfs spatail and other extensions of duckdb and converts data as required.
+Robust Attribute Table/Grid with Seaarch and spatial search - DUCKDB WASM for local and internet files and access to it's extensions
+Browse Online Resources (ESRI ArcGIS LivingAtlas, ArcGIS Hub, STAC, OGC API Records and perform searches and load data
+3D/2.5D Data Creation and Editing to support Z/M Enabled WFS-T -with a new widget
+debug issues - see debug tile layer, see layers and attributes of vector tiles
+via DuckDB and extensions support for Google Sheets and Google Big Query
+Via Duckdb extensions supports some AI
+
+Page 2 - WAYFINDING
+
+Evaluate Walking Path Routing using PG_Routing
+Page 3 -CloudNative Cloud Native/Optimized PMTILES and FlatGeoBuf with FlatGeoBuf Searching
+
+Page 4 Map Compare
+Two side by Side Maps to compare performance and evaluagte different mapping services and tile layers to see the impact on page load times, refreshes, and other functions
+
+Developed by Jordan Bess May 2025
 ## Project Overview
 This project is a web application designed for exploring and interacting with geospatial data. It integrates multiple data sources, tools, and libraries to provide a comprehensive environment for developers and data analysts to work with geospatial information. Key features include connecting to various data sources, executing queries, creating geometries, discovering new data, and interacting with a dynamic map interface.
 
