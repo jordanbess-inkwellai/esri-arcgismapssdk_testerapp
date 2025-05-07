@@ -1,4 +1,3 @@
-tsx
 import React, { useEffect, useRef, useState } from 'react';
 import TileLayer from "@arcgis/core/layers/TileLayer";
 
@@ -52,7 +51,7 @@ const MapCompare = React.forwardRef<any, MapCompareProps>(({ addLayer }, ref) =>
     })();
   }, [mapLoaded, addLayer]);
   return (
-    <div id="mapDiv" ref={ref} style={{ height: '500px', width: '100%' }}>
+    <div id="map-div" ref={ref} style={{ height: '100%', width: '100%' }}>
     </div>
   );
 });
