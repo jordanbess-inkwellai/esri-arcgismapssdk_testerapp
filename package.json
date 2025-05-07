@@ -1,0 +1,30 @@
+{
+  "name": "out",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@arcgis/core": "^4.32.10",
+    "@duckdb/duckdb-wasm": "^1.29.1-dev132.0",
+    "@loaders.gl/flatgeobuf": "^4.3.3",
+    "loaders.gl": "^0.3.5",
+    "next": "15.3.1",
+    "pmtiles": "^4.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "spl.js": "^0.1.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
