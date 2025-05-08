@@ -1,7 +1,7 @@
 # Geospatial Data Exploration Tool
 esri-arcgismapssdk_testerapp
 provide working sample to evaluate features and capabilities for smartmap
-
+this repo was migrated to https://github.com/aiinkwell/ecco-spatial-demo
 This is for INTERNAL USE ONLY 
 NOT FOR DISTRIBUTION OR PUBLIC VIEWING.
 THIS IS A DEVELOPER TOOL !
