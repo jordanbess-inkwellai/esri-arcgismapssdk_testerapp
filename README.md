@@ -1,6 +1,6 @@
 # esri-arcgismapssdk_testerapp
 provide working sample to evaluate features and capabilities for smartmap
-
+this repo was migrated to https://github.com/aiinkwell/ecco-spatial-demo
 Page 1 
 1) Support OGC WFS-T Transactional with new Editor Widget  (Connection to GeoNode/GeoServer)
 2) Add Data Widget with support for any OGR supported format local and internet via httpfs spatail and other extensions of duckdb and converts data as required.
